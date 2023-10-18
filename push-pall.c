@@ -7,7 +7,7 @@ void push(stack_t **stack, unsigned int line_number)
 	(void)line_number;
 	if (!stack)
 	{
-		fprintf(stderr, "Error: Stack is NULL\n");
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
