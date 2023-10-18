@@ -6,9 +6,16 @@
 
 void sub(stack_t **stack, unsigned int line_number)
 {
-	char *err = "L%d: can't sub, stack too short\n";
+	char err[10000], digit[1000], *str;
+
+	string_digit(line_number, digit);
+	_concat(err, "L:", 0);
+	_concat(err, digit, strlen(digit));
+
 	if (!stack || !(*stack) || !(*stack)->next)
 	{
+		str = ": can't sub, stack too short\n";
+		_concat(err, str, strlen(err));
 		write(STDERR_FILENO, err, strlen(err));
 		exit(EXIT_FAILURE);
 	}
@@ -20,9 +27,16 @@ void sub(stack_t **stack, unsigned int line_number)
 
 void mul(stack_t **stack, unsigned int line_number)
 {
-	char *err = "L%d: can't mul, stack too short\n";
+	char err[10000], digit[1000], *str;
+
+	string_digit(line_number, digit);
+	_concat(err, "L:", 0);
+	_concat(err, digit, strlen(digit));
+
 	if (!stack || !(*stack) || !(*stack)->next)
 	{
+		str = ": can't mul, stack too short\n";
+		_concat(err, str, strlen(err));
 		write(STDERR_FILENO, err, strlen(err));
 		exit(EXIT_FAILURE);
 	}
@@ -34,9 +48,15 @@ void mul(stack_t **stack, unsigned int line_number)
 
 void mod(stack_t **stack, unsigned int line_number)
 {
-	char *err = "L%d: can't mod, stack too short\n";
+	char err[10000], digit[1000], *str;
+
+	string_digit(line_number, digit);
+	_concat(err, "L:", 0);
+	_concat(err, digit, strlen(digit));
 	if (!stack || !(*stack) || !(*stack)->next)
 	{
+		str = ": can't mod, stack too short\n";
+		_concat(err, str, strlen(err));
 		write(STDERR_FILENO, err, strlen(err));
 		exit(EXIT_FAILURE);
 	}
@@ -48,9 +68,15 @@ void mod(stack_t **stack, unsigned int line_number)
 
 void divide(stack_t **stack, unsigned int line_number)
 {
-	char *err = "L%d: can't div, stack too short\n";
+	char err[10000], digit[1000], *str;
+
+	string_digit(line_number, digit);
+	_concat(err, "L:", 0);
+	_concat(err, digit, strlen(digit));
 	if (!stack || !(*stack) || !(*stack)->next)
 	{
+		str = ": can't div, stack too short\n";
+		_concat(err, str, strlen(err));
 		write(STDERR_FILENO, err, strlen(err));
 		exit(EXIT_FAILURE);
 	}
@@ -59,7 +85,8 @@ void divide(stack_t **stack, unsigned int line_number)
 		(*stack)->next->n /= (*stack)->n;
 	else
 	{
-		err = "L<line_number>: division by zero\n";
+		str = ": division by zero\n";
+		_concat(err, str, strlen(err));
 		write(STDERR_FILENO, err, strlen(err));
 		exit(EXIT_FAILURE);
 	}

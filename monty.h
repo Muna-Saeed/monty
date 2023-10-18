@@ -49,4 +49,6 @@ void pchar(stack_t **stack, unsigned int line_number);
 void pstr(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
+void _concat(char *bf, char *str1, int  n);
+void string_digit(int d, char *bf2);
 #endif /* MONTY_H */
