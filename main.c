@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 		line_number++;
 
 		/* Tokenize the line */
-		opcode = strtok(line, " \t\n");
+		opcode = strtok(line, " \t$\n");
 		if (!opcode)
 			/* Empty line, skip to the next iteration */
 			continue;

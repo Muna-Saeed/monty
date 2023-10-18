@@ -3,7 +3,6 @@
 void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node;
-
 	(void)line_number;
 	if (!stack)
 	{
