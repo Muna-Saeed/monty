@@ -60,7 +60,13 @@ void mod(stack_t **stack, unsigned int line_number)
 		write(STDERR_FILENO, err, strlen(err));
 		exit(EXIT_FAILURE);
 	}
-
+	if ((*stack)->next->n != 0)
+	{
+		str = ": division by zero\n";
+		_concat(err, str, strlen(err));
+		write(STDERR_FILENO, err, strlen(err));
+		exit(EXIT_FAILURE);
+	}
 	(*stack)->next->n %= (*stack)->n;
 
 	pop(stack, line_number);
@@ -81,7 +87,7 @@ void divide(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	if ((*stack)->n != 0)
+	if ((*stack)->next->n != 0)
 		(*stack)->next->n /= (*stack)->n;
 	else
 	{
