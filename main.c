@@ -6,6 +6,7 @@ instruction_t get_instruction(char *opcode)
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
+		{"pop", pop},
 		{"add", add},
 		{"sub", sub},
 		{"div", divide},
