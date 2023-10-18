@@ -11,18 +11,6 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	/* Convert the argument to an integer */
-	int num;
-	char *endptr;
-	num = strtol(stack, &endptr, 10);
-
-	/* Validate if the conversion was successful */
-	if (*endptr != '\0')
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-
 	/* Create a new stack node */
 
 	new_node = malloc(sizeof(stack_t));
@@ -34,7 +22,7 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 
 	/* remove line_number replace it to  strtok */
-	new_node->n = num;
+	new_node->n = atoi(strtok(NULL, " "));
 	new_node->prev = NULL;
 	new_node->next = *stack;
 
