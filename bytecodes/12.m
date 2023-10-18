@@ -1,5 +1,3 @@
-push 3
-push 0
-mod
-pall
+push 76
+pstr
 
