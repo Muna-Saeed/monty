@@ -57,5 +57,11 @@ void divide(stack_t **stack, unsigned int line_number)
 
 	if ((*stack)->n != 0)
 		(*stack)->next->n /= (*stack)->n;
+	else
+	{
+		err = "L<line_number>: division by zero\n";
+		write(STDERR_FILENO, err, strlen(err));
+		exit(EXIT_FAILURE);
+	}
 	pop(stack, line_number);
 }
