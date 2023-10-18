@@ -26,8 +26,6 @@ instruction_t get_instruction(char *opcode)
 	}
 
 	/* Return a default instruction if opcode not found */
-	if (*opcode == '#')
-		return (instructions[9]);
 	return (instructions[i]);
 }
 
