@@ -31,7 +31,20 @@ instruction_t get_instruction(char *opcode)
 	/* Return a default instruction if opcode not found */
 	return (instructions[i]);
 }
+void free_mem(stack_t **stack)
+{
+	stack_t *temp;
 
+	while ((*stack)->prev != NULL)
+		*stack = (*stack)->prev;
+	while (*stack != NULL)
+	{
+		temp = *stack;
+		*stack = (*stack)->next;
+		free(temp);
+	}
+	
+}
 int main(int argc, char *argv[])
 {
 	FILE *file;
@@ -77,5 +90,6 @@ int main(int argc, char *argv[])
 	}
 
 	fclose(file);
+	free_mem(&stack);
 	return (EXIT_SUCCESS);
 }
