@@ -8,6 +8,7 @@ void sub(stack_t **stack, unsigned int line_number)
 {
 	char err[10000], digit[1000], *str;
 
+
 	string_digit(line_number, digit);
 	_concat(err, "L:", 0);
 	_concat(err, digit, strlen(digit));
@@ -49,6 +50,7 @@ void mul(stack_t **stack, unsigned int line_number)
 void mod(stack_t **stack, unsigned int line_number)
 {
 	char err[10000], digit[1000], *str;
+	int n;
 
 	string_digit(line_number, digit);
 	_concat(err, "L:", 0);
@@ -60,21 +62,26 @@ void mod(stack_t **stack, unsigned int line_number)
 		write(STDERR_FILENO, err, strlen(err));
 		exit(EXIT_FAILURE);
 	}
-	if ((*stack)->next->n != 0)
+	if ((*stack)->n != 0)
+	{
+		n = (*stack)->n;
+		pop(stack, line_number);
+		(*stack)->n = (*stack)->n % n;
+	}
+	else
 	{
 		str = ": division by zero\n";
 		_concat(err, str, strlen(err));
 		write(STDERR_FILENO, err, strlen(err));
 		exit(EXIT_FAILURE);
 	}
-	(*stack)->next->n %= (*stack)->n;
-
-	pop(stack, line_number);
+	
 }
 
 void divide(stack_t **stack, unsigned int line_number)
 {
 	char err[10000], digit[1000], *str;
+	int n;
 
 	string_digit(line_number, digit);
 	_concat(err, "L:", 0);
@@ -87,8 +94,12 @@ void divide(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	if ((*stack)->next->n != 0)
-		(*stack)->next->n /= (*stack)->n;
+	if ((*stack)->n != 0)
+	{
+		n = (*stack)->n;
+		pop(stack, line_number);
+		(*stack)->n = (*stack)->n / n;
+	}
 	else
 	{
 		str = ": division by zero\n";
@@ -96,5 +107,5 @@ void divide(stack_t **stack, unsigned int line_number)
 		write(STDERR_FILENO, err, strlen(err));
 		exit(EXIT_FAILURE);
 	}
-	pop(stack, line_number);
+
 }
