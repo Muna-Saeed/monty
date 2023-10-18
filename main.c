@@ -1,67 +1,78 @@
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
 #include "monty.h"
+#include <string.h>
+instruction_t get_instruction(char *opcode)
+{
+	instruction_t instructions[] = {
+		{"push", push},
+		{"pall", pall},
+		{"add", add},
+		{"sub", sub},
+		{"div", divide},
+		{"mul", mul},
+		{"mod", mod},
+		{"pchar", pchar},
+		{"pstr", pstr},
+		{"nop", nop},
+		{"rotl", rotl},
+		{NULL, NULL}
+	};
+
+	int i = 0;
+	while (instructions[i].opcode != NULL)
+	{
+		if (strcmp(instructions[i].opcode, opcode) == 0)
+			return instructions[i];
+		i++;
+	}
+
+	/* Return a default instruction if opcode not found */
+	return (instructions[i]);
+}
 
 int main(int argc, char *argv[])
 {
 	FILE *file;
+	char line[100], *opcode;
+	unsigned int line_number = 0;
 	stack_t *stack = NULL;
-	char *line = NULL;
-	size_t line_len = 0;
-	ssize_t read;
-	unsigned int line_number;
+	instruction_t instruction;
 
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: monty file\n");
-		exit(EXIT_FAILURE);
+		fprintf(stderr, "USAGE: monty file\n");
+		return (EXIT_FAILURE);
 	}
 
 	file = fopen(argv[1], "r");
-	if (file == NULL)
+	if (!file)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		exit(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 
-	/* Update line number accordingly */
-	line_number= 1;
-
-	while ((read = getline(&line, &line_len, file)) != -1)
+	while (fgets(line, sizeof(line), file) != NULL)
 	{
-		char *opcode = strtok(line, " \t\n");
-		if (opcode != NULL)
+		line_number++;
+
+		/* Tokenize the line */
+		opcode = strtok(line, " \t\n");
+		if (!opcode)
+			/* Empty line, skip to the next iteration */
+			continue;
+
+		/* Get the corresponding instruction */
+		instruction = get_instruction(opcode);
+		if (!instruction.f)
 		{
-			instruction_t instruction;
-			instruction.opcode = opcode;
-			instruction.f = NULL;
-
-			if (strcmp(opcode, "push") == 0)
-				instruction.f = push;
-			else if (strcmp(opcode, "pall") == 0)
-				instruction.f = pall;
-
-			if (instruction.f != NULL)
-				instruction.f(&stack, line_number);
-			else
-			{
-				fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
-				fclose(file);
-				free(line);
-				exit(EXIT_FAILURE);
-			}
+			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
+			fclose(file);
+			return (EXIT_FAILURE);
 		}
 
-		line_number++;
+		/* Executes the instruction's function */
+		instruction.f(&stack, line_number);
 	}
 
 	fclose(file);
-	free(line);
-
-	/* Clean up the stack if needed */
-
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
