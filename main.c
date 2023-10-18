@@ -1,10 +1,19 @@
 #include "monty.h"
-
+#include <string.h>
 instruction_t get_instruction(char *opcode)
 {
 	instruction_t instructions[] = {
 		{"push", push},
 		{"pall", pall},
+		{"add", add},
+		{"sub", sub},
+		{"div", divide},
+		{"mul", mul},
+		{"mod", mod},
+		{"pchar", pchar},
+		{"pstr", pstr},
+		{"nop", nop},
+		{"rotl", rotl},
 		{NULL, NULL}
 	};
 
@@ -17,36 +26,38 @@ instruction_t get_instruction(char *opcode)
 	}
 
 	/* Return a default instruction if opcode not found */
+	if (*opcode == '#')
+		return (instructions[9]);
 	return (instructions[i]);
 }
 
 int main(int argc, char *argv[])
 {
+	FILE *file;
+	char line[100], *opcode;
+	unsigned int line_number = 0;
+	stack_t *stack = NULL;
+	instruction_t instruction;
+
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		return (EXIT_FAILURE);
 	}
 
-	FILE *file = fopen(argv[1], "r");
+	file = fopen(argv[1], "r");
 	if (!file)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
 
-	char line[100];
-	unsigned int line_number = 0;
-
-	stack_t *stack = NULL;
-	instruction_t instruction;
-
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
 		line_number++;
 
 		/* Tokenize the line */
-		char *opcode = strtok(line, " \t\n");
+		opcode = strtok(line, " \t\n");
 		if (!opcode)
 			/* Empty line, skip to the next iteration */
 			continue;

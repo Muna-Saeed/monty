@@ -1,14 +1,17 @@
 #include "monty.h"
-
+#include <string.h>
 void push(stack_t **stack, unsigned int line_number)
 {
+	stack_t *new_node;
+
+	(void)line_number;
 	if (!stack)
 	{
 		fprintf(stderr, "Error: Stack is NULL\n");
 		exit(EXIT_FAILURE);
 	}
 
-	stack_t *new_node = malloc(sizeof(stack_t));
+	new_node = malloc(sizeof(stack_t));
 
 	if (!new_node)
 	{
@@ -16,7 +19,8 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	new_node->n = line_number;
+	/* remove line_number replace it to  strtok */
+	new_node->n = atoi(strtok(NULL, " "));
 	new_node->prev = NULL;
 	new_node->next = *stack;
 
@@ -28,10 +32,9 @@ void push(stack_t **stack, unsigned int line_number)
 
 void pall(stack_t **stack, unsigned int line_number)
 {
-	(void)line_number;
-
 	stack_t *current = *stack;
 
+	(void)line_number;
 	while (current)
 	{
 		printf("%d\n", current->n);
@@ -52,13 +55,14 @@ void pint(stack_t **stack, unsigned int line_number)
 
 void pop(stack_t **stack, unsigned int line_number)
 {
+	stack_t *temp;
+
 	if (!stack || !(*stack))
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-
-	stack_t *temp = *stack;
+	temp = *stack;
 	*stack = (*stack)->next;
 
 	if (*stack)
@@ -69,14 +73,15 @@ void pop(stack_t **stack, unsigned int line_number)
 
 void swap(stack_t **stack, unsigned int line_number)
 {
+	stack_t *top, *second;
 	if (!stack || !(*stack) || !(*stack)->next)
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	stack_t *top = *stack;
-	stack_t *second = top->next;
+	top = *stack;
+	second = top->next;
 
 	top->next = second->next;
 	if (second->next)
