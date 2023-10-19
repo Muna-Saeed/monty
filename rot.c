@@ -1,4 +1,10 @@
 #include "monty.h"
+/**
+ * rotl - function name
+ * @stack: stack list
+ * @line_number: line number
+ */
+
 void rotl(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp = *stack, *nd, *t;
@@ -25,7 +31,11 @@ void rotl(stack_t **stack, unsigned int line_number)
 	nd->prev = temp;
 	nd->next = NULL;
 }
-
+/**
+ * rotr - function name
+ * @stack: stack list
+ * @line_number: line number
+ */
 void rotr(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp = *stack, *nd, *t;
@@ -35,8 +45,6 @@ void rotr(stack_t **stack, unsigned int line_number)
 	{
 		return;
 	}
-	
-	
 	while (temp->next != NULL)
 	{
 		temp = temp->next;

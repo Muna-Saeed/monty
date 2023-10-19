@@ -3,6 +3,11 @@
 #include "monty.h"
 #include <unistd.h>
 #include <stdio.h>
+/**
+ * add - function name
+ * @stack: stack list
+ * @line_number: line number
+ */
 
 void add(stack_t **stack, unsigned int line_number)
 {
@@ -16,7 +21,11 @@ void add(stack_t **stack, unsigned int line_number)
 
 	pop(stack, line_number);
 }
-
+/**
+ * sub - function name
+ * @stack: stack list
+ * @line_number: line number
+ */
 void sub(stack_t **stack, unsigned int line_number)
 {
 	char err[10000], digit[1000], *str;
@@ -38,7 +47,11 @@ void sub(stack_t **stack, unsigned int line_number)
 
 	pop(stack, line_number);
 }
-
+/**
+ * mul - function name
+ * @stack: stack list
+ * @line_number: line number
+ */
 void mul(stack_t **stack, unsigned int line_number)
 {
 	char err[10000], digit[1000], *str;
@@ -59,7 +72,11 @@ void mul(stack_t **stack, unsigned int line_number)
 
 	pop(stack, line_number);
 }
-
+/**
+ * mod - function name
+ * @stack: stack list
+ * @line_number: line number
+ */
 void mod(stack_t **stack, unsigned int line_number)
 {
 	char err[10000], digit[1000], *str;
@@ -88,9 +105,12 @@ void mod(stack_t **stack, unsigned int line_number)
 		write(STDERR_FILENO, err, strlen(err));
 		exit(EXIT_FAILURE);
 	}
-	
 }
-
+/**
+ * divide - function name
+ * @stack: stack list
+ * @line_number: line number
+ */
 void divide(stack_t **stack, unsigned int line_number)
 {
 	char err[10000], digit[1000], *str;

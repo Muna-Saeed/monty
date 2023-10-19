@@ -1,8 +1,12 @@
 #include "monty.h"
 #include <string.h>
 
-int mode = STACK_MODE;
 
+/**
+ * get_instruction - function gets instructions
+ * @opcode: str type opcode
+ * Return: fucction of type instructions
+ */
 instruction_t get_instruction(char *opcode)
 {
 	instruction_t instructions[] = {
@@ -27,10 +31,11 @@ instruction_t get_instruction(char *opcode)
 	};
 
 	int i = 0;
+
 	while (instructions[i].opcode != NULL)
 	{
 		if (strcmp(instructions[i].opcode, opcode) == 0)
-			return instructions[i];
+			return (instructions[i]);
 		i++;
 	}
 	if (*opcode == '#')
@@ -38,7 +43,10 @@ instruction_t get_instruction(char *opcode)
 	/* Return a default instruction if opcode not found */
 	return (instructions[i]);
 }
-
+/**
+ * free_mem - frees memory
+ * @stack: adress of the stack list
+ */
 void free_mem(stack_t **stack)
 {
 	stack_t *temp;
@@ -54,8 +62,13 @@ void free_mem(stack_t **stack)
 		*stack = (*stack)->next;
 		free(temp);
 	}
-	
 }
+/**
+ * main - main function of the program
+ * @argc: the size
+ * @argv: array of inputs
+ * Return: status
+ */
 int main(int argc, char *argv[])
 {
 	FILE *file;
@@ -76,18 +89,13 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
-
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
 		line_number++;
-
-		/* Tokenize the line */
 		opcode = strtok(line, " \t$\n");
 		if (!opcode)
-			/* Empty line, skip to the next iteration */
 			continue;
 
-		/* Get the corresponding instruction */
 		instruction = get_instruction(opcode);
 		if (!instruction.f)
 		{
@@ -95,8 +103,6 @@ int main(int argc, char *argv[])
 			fclose(file);
 			return (EXIT_FAILURE);
 		}
-
-		/* Executes the instruction's function */
 		instruction.f(&stack, line_number);
 	}
 

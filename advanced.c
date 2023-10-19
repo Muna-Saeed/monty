@@ -3,6 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+/**
+ * head - function gets the head
+ * @stack: the list
+ * Return: stack
+ */
 
 stack_t *head(stack_t *stack)
 {
@@ -18,6 +23,11 @@ stack_t *head(stack_t *stack)
 	return (ptr);
 }
 
+/**
+ * top - function gets the head
+ * @stack: the list
+ * Return: stack
+ */
 stack_t *top(stack_t *stack)
 {
 	stack_t *ptr = stack;
@@ -32,7 +42,11 @@ stack_t *top(stack_t *stack)
 	return (ptr);
 }
 
-
+/**
+ * pchar - function name
+ * @stack: stack list
+ * @line_number: line number
+ */
 void pchar(stack_t **stack, unsigned int line_number)
 {
 	stack_t *topp = top(*stack);
@@ -57,7 +71,11 @@ void pchar(stack_t **stack, unsigned int line_number)
 	exit(EXIT_FAILURE);
 }
 
-
+/**
+ * pstr - function name
+ * @stack: stack list
+ * @line_number: line number
+ */
 void pstr(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
@@ -70,7 +88,7 @@ void pstr(stack_t **stack, unsigned int line_number)
 		return;
 	}
 	(void)line_number;
-	while(current != NULL)
+	while (current != NULL)
 	{
 		num = current->n;
 		if (num == 0)
