@@ -22,11 +22,6 @@ void rotl(stack_t **stack, unsigned int line_number)
 	t = temp;
 	temp = temp->next;
 	free(t);
-	if (temp == NULL)
-	{
-		free(nd);
-		return;
-	}
 	*stack = temp;
 	while (temp->next != NULL)
 	{
@@ -44,7 +39,6 @@ void rotl(stack_t **stack, unsigned int line_number)
 void rotr(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp = *stack, *nd, *t;
-	int n = 0;
 
 	(void)line_number;
 	if (*stack == NULL || (*stack)->next == NULL)
@@ -54,10 +48,7 @@ void rotr(stack_t **stack, unsigned int line_number)
 	while (temp->next != NULL)
 	{
 		temp = temp->next;
-		n++;
 	}
-	if (n < 2)
-		return;
 	nd = malloc(sizeof(stack_t));
 	if (nd == NULL)
 		return;

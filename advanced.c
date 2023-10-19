@@ -53,7 +53,7 @@ void pchar(stack_t **stack, unsigned int line_number)
 	int n;
 	char s[2];
 
-	if (!(*stack))
+	if (*stack == NULL)
 	{
 		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
