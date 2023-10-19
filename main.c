@@ -22,6 +22,7 @@ instruction_t get_instruction(char *opcode)
 		{"stack", stack},
 		{"queue", queue},
 		{"rotl", rotl},
+		{"rotr", rotr},
 		{NULL, NULL}
 	};
 
