@@ -46,7 +46,7 @@ void pchar(stack_t **stack, unsigned int line_number)
 	}
 
 	n = topp->n;
-	if (n >= 48 && n <= 127)
+	if (n >= 0 && n <= 127)
 	{
 		s[0] = (char)n;
 		s[1] = '\n';
@@ -62,25 +62,28 @@ void pstr(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
 	char s[10000], c;
-	int n = 0;
+	int n = 0, num = 0;
 
-	if (line_number == 0 || *stack == NULL)
+	if (*stack == NULL || stack == NULL)
 	{
 		fprintf(stderr, "L%d: can't pstr, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	(void)line_number;
-	if (stack == NULL)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		return;
-	}
 	while(current != NULL)
 	{
-		c = (char)current->n;
-		s[n] = c;
-		n++;
-		current = current->next;
+		num = current->n;
+		if (num == 0)
+			break;
+		if (num >= 0 && num <= 127)
+		{
+			c = (char)num;
+			s[n] = c;
+			n++;
+			current = current->next;
+		}
+		else
+			break;
 	}
 	s[n] = '\0';
 	write(STDOUT_FILENO, s, strlen(s));
