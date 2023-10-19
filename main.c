@@ -1,5 +1,8 @@
 #include "monty.h"
 #include <string.h>
+
+int mode = STACK_MODE;
+
 instruction_t get_instruction(char *opcode)
 {
 	instruction_t instructions[] = {
@@ -16,6 +19,8 @@ instruction_t get_instruction(char *opcode)
 		{"pchar", pchar},
 		{"pstr", pstr},
 		{"nop", nop},
+		{"stack", stack},
+		{"queue", queue},
 		{"rotl", rotl},
 		{NULL, NULL}
 	};

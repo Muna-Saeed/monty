@@ -1,6 +1,9 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+#define STACK_MODE 0
+#define QUEUE_MODE 1
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -52,4 +55,7 @@ void nop(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
 void _concat(char *bf, char *str1, int  n);
 void string_digit(int d, char *bf2);
+void stack(stack_t **stack, unsigned int line_number);
+void queue(stack_t **stack, unsigned int line_number);
+
 #endif /* MONTY_H */
