@@ -37,14 +37,14 @@ void pchar(stack_t **stack, unsigned int line_number)
 {
 	stack_t *topp = top(*stack);
 	int n;
-	char s[2], *str;
+	char s[2];
 
 	if (!(*stack))
 	{
 		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	(void)line_number;
+
 	n = topp->n;
 	if (n >= 48 && n <= 127)
 	{
@@ -53,8 +53,7 @@ void pchar(stack_t **stack, unsigned int line_number)
 		write(STDOUT_FILENO, s, strlen(s));
 		return;
 	}
-	str = "L<L%d: can't pchar, value out of range\n";
-	write(STDOUT_FILENO, str, strlen(str));
+	fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
 	exit(EXIT_FAILURE);
 }
 

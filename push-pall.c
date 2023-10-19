@@ -3,7 +3,11 @@
 void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node;
+	char str[1000], *st = strtok(NULL, " ");
+	int len;
 	(void)line_number;
+	_concat(str, st, 0);
+
 	if (!stack)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
@@ -20,8 +24,14 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	/* remove line_number replace it to  strtok */
-	new_node->n = atoi(strtok(NULL, " "));
+	
+	
+	if (str == NULL)
+		return;
+	len = strlen(str);
+	if (len > 0 && str[len - 1] == '$')
+		str[len - 1] = '\0';
+	new_node->n = atoi(str);
 	new_node->prev = NULL;
 	new_node->next = *stack;
 
