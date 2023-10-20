@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "USAGE: monty file\n");
 		return (EXIT_FAILURE);
 	}
-
+	queue_stack(1);
 	file = fopen(argv[1], "r");
 	if (!file)
 	{

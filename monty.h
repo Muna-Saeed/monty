@@ -58,5 +58,5 @@ void string_digit(int d, char *bf2);
 void stack(stack_t **stack, unsigned int line_number);
 void queue(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number);
-
+int queue_stack(int n);
 #endif /* MONTY_H */
